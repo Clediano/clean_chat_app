@@ -21,7 +21,7 @@ class APIFailure extends Failure {
 
   APIFailure.fromAPIException(APIException exception)
       : this(
-          message: exception.message,
-          statusCode: exception.statusCode,
-        );
+    message: exception.message,
+    statusCode: exception.statusCode,
+  );
 }

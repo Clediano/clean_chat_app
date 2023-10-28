@@ -22,7 +22,9 @@ void main() {
 
   group('createUser', () {
     test('should complete successfully when the status code is 20*', () async {
-      when(() => client.post(any(), body: any(named: 'body'))).thenAnswer(
+      when(() => client.post(any(),
+          body: any(named: 'body'),
+          headers: {'Content-Type': 'application/json'})).thenAnswer(
         (_) async => Response('User created Successfully', 201),
       );
 
@@ -37,14 +39,13 @@ void main() {
           completes);
 
       verify(
-        () => client.post(
-          Uri.https(kBaseUrl, kCreateUserEndpoint),
-          body: jsonEncode({
-            'createdAt': 'createdAt',
-            'name': 'name',
-            'avatar': 'avatar',
-          }),
-        ),
+        () => client.post(Uri.https(kBaseUrl, kCreateUserEndpoint),
+            body: jsonEncode({
+              'createdAt': 'createdAt',
+              'name': 'name',
+              'avatar': 'avatar',
+            }),
+            headers: {'Content-Type': 'application/json'}),
       ).called(1);
       verifyNoMoreInteractions(client);
     });
